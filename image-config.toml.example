@@ -1,0 +1,11 @@
+[output]
+# Default output directory. When omitted, the CLI uses the current working directory.
+# directory = "story-assets"
+
+[images.cover]
+width = 1920
+height = 1080
+
+[images.thumbnail]
+width = 1280
+height = 720

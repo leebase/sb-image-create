@@ -32,7 +32,7 @@ dev = [
 ]
 
 [project.scripts]
-sb-image-create = "sb-image-create.main:main"
+sb-image-create = "sb_image_create.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

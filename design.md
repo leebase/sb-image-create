@@ -11,6 +11,7 @@ Build a local Python CLI that an agent can call to turn a story title and synops
 - a `thumbnail` image derived from that same visual concept, suitable for YouTube
 
 The design must prioritize visual continuity between the two outputs.
+The default user experience should be one invocation that creates both outputs.
 
 ---
 
@@ -50,25 +51,25 @@ The CLI surface should remain provider-agnostic even though Gemini is the first 
 Required:
 - `--title`
 - `--synopsis`
-- `--variant cover|thumbnail`
-- `--name-root`
 
 Important optional inputs:
 - `--title-text`
+- `--name-root`
 - `--output-dir`
-- `--width`
-- `--height`
+- `--cover-width`
+- `--cover-height`
+- `--thumb-width`
+- `--thumb-height`
 - `--json`
 - `--dry-run`
 - `--model`
 - `--seed`
-- `--reference-image`
 - `--metadata-output`
 - `--config`
 
 Notes:
-- `--title-text` is intended for thumbnail overlay text, not the story title itself
-- `--reference-image` is especially important for `thumbnail`
+- `--title-text` defaults to the story title
+- `--name-root` defaults to a filename-safe slug derived from the story title
 
 Default output behavior:
 - if `--output-dir` is omitted, use the current working directory
@@ -94,7 +95,7 @@ The config file should define reusable defaults such as:
 - provider
 - text model
 - image model
-- default dimensions per variant
+- default dimensions for cover and thumbnail
 - output format
 - metadata sidecar behavior
 - style defaults
@@ -112,7 +113,7 @@ This keeps the CLI terse for automation while preserving override flexibility.
 
 ## Output Contract
 
-Each invocation writes exactly one image to the resolved output path.
+Each invocation writes exactly two images to resolved output paths.
 
 Resolved paths:
 - `cover` -> `<output-dir>/<name_root>_cover.jpg`
@@ -124,16 +125,20 @@ Optional machine-readable stdout:
 ```json
 {
   "ok": true,
-  "variant": "cover",
-  "output": "/abs/path/to/story-001_cover.jpg",
+  "outputs": {
+    "cover": "/abs/path/to/story-001_cover.jpg",
+    "thumbnail": "/abs/path/to/story-001_thumb.jpg"
+  },
   "model": "gemini-3.1-flash-image-preview",
   "direction": {
     "subject": "...",
     "setting": "...",
     "mood": "..."
   },
-  "prompt": "...",
-  "reference_image": null
+  "prompts": {
+    "cover": "...",
+    "thumbnail": "..."
+  }
 }
 ```
 
@@ -154,17 +159,21 @@ That metadata should be sufficient for:
 Input:
 - story title
 - synopsis
-- variant
+- derived title text
+- derived or explicit name root
 
 ### 2. Direction Resolution
 
 A text model resolves the story into a reusable direction artifact.
 
-That resolution step should be guided by the project's own image-direction resources:
+That resolution step should be based on the project's own image-direction resources:
 - `skills/story-image-direction.md`
 - `agents/story-art-director.md`
 
-The app does not literally "execute markdown." Instead, implementation should encode the rules and output shape defined by those files so prompt-building stays aligned with project guidance.
+The app should not read these markdown files at runtime.
+Instead, implementation should encode the rules and output shape defined by those files into built-in Python prompt logic so the application is portable and callable from anywhere.
+
+When the skills or agent guidance change, the app should be updated to match and redeployed.
 
 Suggested fields:
 - story title
@@ -191,7 +200,7 @@ Requirements:
 
 ### 4. Thumbnail Generation
 
-The thumbnail should be created from the cover image.
+The thumbnail should be created from the generated cover image in the same command flow.
 
 That step should be guided by:
 - `skills/paired-image-generation.md`
@@ -243,24 +252,20 @@ Default target:
 
 ## Gemini Workflow
 
-### Cover Workflow
+### Paired Workflow
 
 1. Load built-in defaults and merge with any config file values and CLI overrides
-2. Use `gemini-3-flash-preview` to derive direction from title and synopsis
-3. Use `gemini-3.1-flash-image-preview` to generate the cover image
-4. Save the image and structured metadata
-
-### Thumbnail Workflow
-
-1. Load built-in defaults and merge with any config file values and CLI overrides
-2. Resolve the same direction artifact
-3. Load the cover image from `--reference-image` or a known paired asset path
-4. Send the cover image plus thumbnail instructions to `gemini-3.1-flash-image-preview`
-5. Ask Gemini to preserve scene identity while optimizing for thumbnail use
-6. Save the thumbnail and structured metadata
+2. Derive `name_root` from the title unless explicitly provided
+3. Derive thumbnail title text from the story title unless explicitly provided
+4. Use `gemini-3-flash-preview` to derive direction from title and synopsis
+5. Use `gemini-3.1-flash-image-preview` to generate the cover image
+6. Use the generated cover image as the source for thumbnail generation
+7. Ask Gemini to preserve scene identity while optimizing for thumbnail use and incorporating title text
+8. Save both images and structured metadata
 
 Important prompt rule:
 - explicitly instruct Gemini not to change the core scene identity when generating the thumbnail
+- explicitly tell Gemini to include the title text in the thumbnail output
 
 ---
 
@@ -277,7 +282,7 @@ Thumbnail prompts should include language like:
 - keep the same subject, palette, mood, and setting
 - preserve the same story identity
 - increase clarity and contrast for thumbnail readability
-- reserve or include space for bold viral title text
+- include the story title as bold thumbnail text
 - do not change the fundamental scene
 
 ---
@@ -290,24 +295,7 @@ Planned command shape:
 sb-image-create generate \
   --title "The Clockmaker's Debt" \
   --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency." \
-  --variant cover \
   --config /abs/path/to/image-config.toml \
-  --name-root clockmakers-debt \
-  --output-dir /abs/path/to/story-assets \
-  --json
-```
-
-Thumbnail example:
-
-```bash
-sb-image-create generate \
-  --title "The Clockmaker's Debt" \
-  --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency." \
-  --variant thumbnail \
-  --config /abs/path/to/image-config.toml \
-  --reference-image /abs/path/to/cover.png \
-  --title-text "HE SOLD TIME TO SAVE HER" \
-  --name-root clockmakers-debt \
   --output-dir /abs/path/to/story-assets \
   --json
 ```
@@ -317,9 +305,7 @@ Minimal call shape when config defaults are present:
 ```bash
 sb-image-create generate \
   --title "The Clockmaker's Debt" \
-  --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency." \
-  --variant cover \
-  --name-root clockmakers-debt
+  --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency."
 ```
 
 ---
@@ -332,7 +318,7 @@ The command should fail clearly when:
 - the model name is invalid
 - the config file is unreadable or invalid
 - the resolved output directory cannot be created
-- thumbnail generation is requested without a usable source image
+- `name_root` cannot be derived safely from the title
 
 When `--json` is enabled, failures should still be machine-readable.
 
@@ -347,7 +333,8 @@ Build a dry-run capable CLI that:
 - validates required fields
 - loads config defaults
 - applies CLI overrides
-- resolves output directory and output filename
+- derives `name_root` and title text defaults
+- resolves paired output paths
 - resolves direction from story inputs
 - prints the resolved request as JSON
 
@@ -361,24 +348,23 @@ Add Gemini image generation for `cover`.
 
 ### Phase 4
 
-Add Gemini image editing flow for `thumbnail` using `--reference-image`.
+Add Gemini image editing flow for `thumbnail` using the generated cover as input.
 
 ### Phase 5
 
 Add tests for:
 - CLI argument validation
 - config loading and override precedence
-- output path resolution from `name_root` and `output_dir`
+- output path resolution from derived `name_root` and `output_dir`
+- title slugging behavior
 - dry-run behavior
 - metadata shape
-- thumbnail requiring source continuity inputs
+- paired generation flow
 
 ---
 
 ## Open Design Questions
 
-- Should the CLI auto-discover the paired cover image when generating a thumbnail?
-- Should title text be rendered by Gemini directly, or should the first version only reserve space for text?
 - Should the direction artifact be persisted separately from per-image metadata?
 - Should default dimensions be strict per variant or overridable with warnings?
 - Should config values support named presets in addition to plain defaults?
@@ -389,8 +375,8 @@ Add tests for:
 
 Start with the simplest dependable path:
 - generate a clean 16:9 cover first
-- require `--reference-image` for thumbnail generation
-- ask Gemini to transform the cover into a thumbnail variant
-- keep title text support simple in the first pass
+- derive the thumbnail from that cover in the same command
+- default the thumbnail text to the story title
+- keep prompt logic built into the app and versioned in code
 
 This minimizes drift and gives the project the strongest chance of producing genuinely related outputs from day one.

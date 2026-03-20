@@ -106,6 +106,61 @@ This gives the repo reusable image-specific operating guidance so different AI s
 
 ---
 
+## 2026-03-20 — Paired Generation Architecture Locked
+
+**Architecture clarified further** so the app now targets one command that generates both the cover and thumbnail together, with prompt logic built into the Python application and upgradeable via code changes informed by the project’s skills and agent guidance.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `product-definition.md` | Updated to reflect paired generation, auto-derived `name_root`, and built-in prompt logic |
+| `design.md` | Updated to reflect one-call paired workflow and title-to-thumbnail-text behavior |
+| `README.md` | Updated to reflect the new default command shape |
+| `sprint-plan.md` | Updated to focus implementation on the paired generator skeleton |
+| `context.md` | Updated with locked decisions and next actions |
+
+### Why It Matters
+
+This aligns the docs with the actual product intent: a callable local app that can be run from anywhere without depending on runtime markdown parsing or multi-step orchestration.
+
+### How to Verify
+
+1. Read `design.md` and confirm one invocation creates both assets
+2. Read `product-definition.md` and confirm `name_root` defaults from the title
+3. Read `README.md` and confirm the minimal command no longer requires `--variant`
+
+---
+
+## 2026-03-20 — Dry-Run CLI Skeleton Implemented
+
+**A real executable CLI foundation now exists.** The scaffold was corrected to use a valid Python package name, the `generate` command resolves paired outputs from title and synopsis, and tests cover slugging plus config/override behavior.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `src/sb_image_create/main.py` | Added `generate` command with dry-run JSON output, config loading, and paired output resolution |
+| `src/sb_image_create/__init__.py` | Added valid import package root |
+| `pyproject.toml` | Fixed console script import path |
+| `tests/test_cli.py` | Added CLI tests for slugging and config precedence |
+| `tests/conftest.py` | Added `src/` path bootstrapping for local tests |
+| `image-config.toml.example` | Added example config schema |
+| `architecture.md` | Added key technical decisions |
+
+### Why It Matters
+
+The project is no longer only a design exercise. There is now a working command shape that downstream automation can begin integrating against while image generation is implemented.
+
+### How to Verify
+
+```bash
+PYTHONPATH=src pytest
+PYTHONPATH=src python3 -m sb_image_create.main generate --title "The Clockmaker's Debt" --synopsis "A desperate watchmaker chases stolen years." --dry-run
+```
+
+---
+
 ## 2026-03-20 — Project Scaffolded
 
 **Project initialized** with init-agent.

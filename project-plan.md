@@ -1,123 +1,218 @@
 # sb-image-create Project Plan
 
-> **Strategic roadmap** — stable, long-term planning document
+> Strategic roadmap for the project. This file should stay relatively stable and explain where the project is going, why it exists, and how progress is staged.
 >
-> For tactical execution, see `sprint-plan.md`
+> For current execution details, see `sprint-plan.md`.
 
 ---
 
-## Project Overview
+## Project Summary
 
-**sb-image-create** is a local Python CLI for AI agents and automation harnesses to turn a story title and synopsis into reusable image direction and matched story-related image outputs.
+`sb-image-create` is a local Python CLI for agent harnesses and automation workflows. It takes a story title and synopsis, derives visual direction, and generates a paired set of related images:
+- a `cover` image for story or MP4 usage
+- a `thumbnail` image for YouTube usage
 
-The philosophy is **TinyClaw**:
-
-> Build the smallest useful primitives first. Validate before scaling.
+The thumbnail should feel like a stronger, more clickable version of the same visual campaign rather than a separate image.
 
 ---
 
-## Objectives
+## Why This Project Exists
 
-### Primary Objective
-Provide a reliable local command-line tool that an agent can call to derive visual direction from a story title and synopsis, then generate a story cover image and a related YouTube thumbnail as part of a media pipeline.
+Story pipelines need image generation that is:
+- predictable
+- scriptable
+- reusable across sessions
+- compatible with agent-driven workflows
 
-### Secondary Objectives
-- Keep the interface deterministic and script-friendly
-- Support non-interactive authentication and execution
-- Make the tool provider-agnostic enough to swap generation backends later
-- Expose image-direction guidance clearly enough that an agent or skill can reuse it
+Ad hoc prompting causes drift. Different sessions produce different visual interpretations, and the cover and thumbnail can diverge. This project creates a stable story-to-image primitive so agents can reliably generate paired assets without rebuilding the workflow every time.
+
+---
+
+## Primary Objective
+
+Deliver a reliable local CLI that an agent can call from anywhere to generate a matched cover and thumbnail pair from:
+- story title
+- story synopsis
+
+---
+
+## Secondary Objectives
+
+- Keep the interface non-interactive and automation-friendly
+- Support stable defaults through `image-config.toml`
+- Preserve visual continuity between cover and thumbnail
+- Encode image-direction guidance into versioned application logic
+- Keep backend integration swappable without redesigning the CLI contract
 
 ---
 
 ## Non-Negotiable Constraints
 
-- No interactive prompts during normal execution
-- Caller supplies exact output path and dimensions
-- Fail loudly with clear machine-readable status when requested
+- Local-first CLI, no web UI dependency for MVP
+- Non-interactive authentication via environment variables or config
+- One invocation should generate both output images
+- Output names must be predictable
+- `name_root` should default to a filename-safe slug of the title
+- Thumbnail text should default to the story title
+- Config values should be overridable via CLI flags
+- Prompt logic should live in code, not depend on runtime markdown parsing
+- Fail loudly and clearly when auth, generation, or file writes fail
+
+---
+
+## Product Shape
+
+### Inputs
+
+Required:
+- `title`
+- `synopsis`
+
+Common optional inputs:
+- `name_root`
+- `output_dir`
+- cover and thumbnail dimension overrides
+- config path
+- JSON output flag
+- dry-run flag
+
+### Outputs
+
+Each run should create:
+- `<name_root>_cover.jpg`
+- `<name_root>_thumb.jpg`
+
+Default output location:
+- the current working directory unless `output_dir` is specified
+
+Expected supporting artifacts:
+- machine-readable JSON output
+- sidecar metadata for reproducibility
+
+---
+
+## Architecture Direction
+
+### Prompt Logic
+
+The project-specific creative guidance lives conceptually in:
+- `skills/story-image-direction.md`
+- `skills/paired-image-generation.md`
+- `agents/story-art-director.md`
+- `agents/thumbnail-conversion.md`
+
+Those files are upgrade references for humans and future AI sessions.
+
+The executable application should translate that guidance into built-in Python prompt logic. Updating the creative rules should happen through code changes, not runtime markdown loading.
+
+### Generation Flow
+
+1. Load built-in defaults
+2. Merge config values
+3. Apply CLI overrides
+4. Derive story direction from title and synopsis
+5. Generate the canonical cover image
+6. Generate the thumbnail from the cover image
+7. Save both outputs and metadata
 
 ---
 
 ## Development Phases
 
-### Phase 0 — Research / Bootstrap
+### Phase 0 - Bootstrap And Definition
 
-**Status**: ACTIVE
+**Goal:** Define the product clearly enough to avoid building the wrong thing.
 
-**Goals**:
-- Define the product purpose and MVP contract
-- Align project memory files with the actual intended use
+**Success looks like:**
+- project purpose documented
+- design and architecture decisions recorded
+- planning docs aligned with real workflow
 
-**Deliverables**:
-- Product definition document
-- Sprint plan for CLI-first implementation
-
----
-
-### Phase 1 — Core Foundation
-
-**Goal**: Ship a usable local CLI skeleton with a stable contract.
-
-**Core components**:
-1. Argument parsing and input validation
-2. Story-to-direction prompt builder
-3. Image generation command with dry-run and structured output
-
-**Success Criteria**:
-- An agent can call the CLI non-interactively
-- The command can resolve and validate a single image generation request end to end
+**Status:** COMPLETE
 
 ---
 
-### Phase 2 — Feature Expansion
+### Phase 1 - Foundation CLI
 
-**Goal**: Improve output quality and story-asset ergonomics.
+**Goal:** Ship a usable paired-image CLI skeleton with stable request, naming, and config behavior.
 
-**Components**:
-- Variant-aware prompting for `cover` and `thumbnail`
-- Metadata sidecars and reproducibility features
-- Direction output that can be reused across agent workflows
+**Core deliverables:**
+- valid package layout
+- `generate` command
+- dry-run mode
+- config loading
+- slug-based output naming
+- tests for CLI contract
 
-**Success Criteria**:
-- Related cover and thumbnail outputs are easy to generate consistently
+**Success looks like:**
+- a caller can resolve a paired request without image generation
+- naming and output paths are predictable
+- config precedence is tested
 
----
-
-### Phase 3 — Integration & Polish
-
-**Goal**: Make the tool production-friendly inside agent pipelines.
-
-**Success Criteria**:
-- Clear docs, stable exit behavior, and solid tests for common workflows
+**Status:** IN PROGRESS
 
 ---
 
-### Phase 4 — Advanced / Future (Optional)
+### Phase 2 - Gemini Generation
 
-**Potential**:
-- Reference-image assisted generation
-- Additional providers or model backends
+**Goal:** Turn the dry-run skeleton into a real image-producing tool.
 
-*Not required for initial success.*
+**Core deliverables:**
+- Gemini-backed direction generation
+- Gemini cover generation
+- Gemini thumbnail generation derived from cover
+- metadata sidecars
+
+**Success looks like:**
+- one command produces both real images
+- thumbnail continuity is visibly preserved
+- failures are machine-readable
+
+**Status:** PLANNED
 
 ---
 
-## Architecture Principles
+### Phase 3 - Quality And Reproducibility
 
-1. **Tiny First** — smallest viable implementation
-2. **Explicit State** — no hidden behavior
-3. **Human Authority** — autonomy with oversight
-4. **Audit Everything** — reproducible history
-5. **Artifacts Over Chat** — durable outputs
+**Goal:** Make output quality and reruns more dependable.
+
+**Core deliverables:**
+- richer built-in prompt logic
+- prompt/version metadata
+- stronger error handling
+- install and packaging validation
+
+**Success looks like:**
+- outputs are more consistent across runs
+- generated artifacts are reproducible enough for debugging
+- the tool is easy to integrate into real pipelines
+
+**Status:** PLANNED
 
 ---
 
-## Core Components
+### Phase 4 - Expansion
 
-### Data Stores
-- `context.md` — session working memory
-- `result-review.md` — running log of completed work
-- `sprint-plan.md` — tactical execution plan
-- `product-definition.md` — vision and constraints
+**Goal:** Extend the tool without destabilizing the contract.
+
+**Potential areas:**
+- alternate providers such as OpenRouter
+- additional presets or style profiles
+- improved metadata and asset catalog support
+- optional packaging/distribution improvements
+
+**Status:** OPTIONAL
+
+---
+
+## Success Metrics
+
+- A caller can generate both story images with one command
+- Cover and thumbnail are recognizably related
+- Output filenames are predictable without requiring explicit full paths
+- JSON output is stable enough for automation
+- Config defaults reduce repetitive caller boilerplate
+- The CLI contract remains stable even if backends evolve
 
 ---
 
@@ -125,35 +220,24 @@ Provide a reliable local command-line tool that an agent can call to derive visu
 
 | Risk | Mitigation |
 |------|------------|
-| Scope creep | TinyClaw discipline |
-| Over-complex architecture | Phase gating |
-| Provider lock-in too early | Keep the CLI contract separate from backend details |
-| Direction quality is inconsistent | Make resolved direction explicit and testable |
-
----
-
-## Success Metrics
-
-- A harness can derive image direction and generate both required image variants without manual steps
-- The tool writes outputs exactly to requested paths
-- CLI responses are parseable and dependable in automation
+| Prompt quality is too weak | Encode stronger built-in prompt logic and test against realistic stories |
+| Cover and thumbnail drift visually | Always derive thumbnail from the generated cover |
+| Provider APIs shift | Keep provider-specific logic behind a stable internal interface |
+| Config grows messy | Keep a small v1 schema and add fields deliberately |
+| Project scope expands too quickly | Keep current work focused on the paired-image CLI core |
 
 ---
 
 ## Current Status
 
-**Phase**: Phase 0 - Research / Bootstrap
-**Mode**: Mode 2 - Collaborative
-**Next Milestone**: Finalize the story-input CLI contract and begin the command skeleton
+**Current Phase:** Phase 1 - Foundation CLI  
+**Mode:** Collaborative  
+**Next Milestone:** Gemini-backed paired generation with metadata sidecars
 
 ---
 
 ## Guiding Philosophy
 
-> Build a tiny, dependable story-to-image primitive that agents can trust in production.
+> Build the smallest dependable story-to-image primitive that agents can trust in production.
 
-Keep implementations minimal. Validate before scaling.
-
----
-
-*End of Project Plan*
+Favor clarity over cleverness. Favor stable contracts over flexible ambiguity. Favor durable artifacts over chat-only knowledge.

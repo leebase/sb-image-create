@@ -12,8 +12,8 @@
 |-----------|-------|
 | **Project** | sb-image-create |
 | **Profile** | Python Package |
-| **Current Phase** | Phase 0 — Bootstrap |
-| **Overall Status** | 🟡 Purpose defined, implementation not started |
+| **Current Phase** | Phase 1 — Core Foundation |
+| **Overall Status** | 🟡 Dry-run CLI implemented, Gemini generation pending |
 | **Last Updated** | 2026-03-20 |
 
 ---
@@ -26,8 +26,8 @@
 
 | Criterion | Status | Notes |
 |-----------|--------|-------|
-| Agent-callable image CLI | 🟡 Defined | Product and sprint docs now aligned |
-| Related cover + thumbnail workflow | ⬜ Not started | CLI implementation still pending |
+| Agent-callable image CLI | 🟡 In progress | Dry-run command and output resolution implemented |
+| Related cover + thumbnail workflow | 🟡 Designed | Generation flow documented, implementation pending |
 | Basic documentation | ✅ Done | Scaffolded by init-agent |
 
 ### Current Phase Goals
@@ -36,7 +36,7 @@
 |------|--------|-------|
 | Establish project structure | ✅ Done | |
 | Define product vision | ✅ Done | `product-definition.md` created |
-| First working feature | ⬜ Not started | |
+| First working feature | 🟡 In progress | Dry-run paired generator skeleton exists |
 
 ---
 
@@ -44,7 +44,7 @@
 
 | Sprint | Focus | Status |
 |--------|-------|--------|
-| Sprint 1 — Foundation | CLI contract and first implementation slice | 🟡 Active |
+| Sprint 1 — Foundation | Paired CLI contract and first implementation slice | 🟡 Active |
 
 ---
 
@@ -52,8 +52,8 @@
 
 | Risk/Blocker | Impact | Status |
 |-------------|--------|--------|
-| Provider/backend choice not yet locked | Implementation details may shift | 🟡 Manageable |
-| Missing CLI implementation | No usable output yet | 🟡 Action needed |
+| Full Gemini generation not yet implemented | No final images yet | 🟡 Action needed |
+| Prompt logic still needs code-level enrichment | Image quality work remains | 🟡 Manageable |
 
 ---
 
@@ -65,6 +65,7 @@ Decisions that affect product direction (for technical decisions, see `architect
 |----------|-----------|------|
 | Python Package profile selected | Best fit for project goals | 2026-03-20 |
 | Local CLI-first approach | Best fit for Codex and other agent harnesses | 2026-03-20 |
+| One invocation creates both assets | Best fit for story packaging workflow | 2026-03-20 |
 
 ---
 
@@ -73,8 +74,8 @@ Decisions that affect product direction (for technical decisions, see `architect
 > Pull from `product-definition.md` once written. This section answers: "How do we know we've succeeded?"
 
 - [ ] MVP criteria met
-- [ ] Agents can generate a cover image to an exact output path
-- [ ] Agents can generate a related YouTube thumbnail to an exact output path
+- [ ] Agents can generate a cover image to a predictable output path
+- [ ] Agents can generate a related YouTube thumbnail to a predictable output path
 - [ ] Documentation complete
 
 ---

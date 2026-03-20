@@ -9,6 +9,7 @@ The project is aimed at a story/media pipeline where an agent needs to produce:
 - a related YouTube thumbnail
 
 The tool should also expose the resolved visual direction so an agent or skill can understand how the story was translated into imagery and keep both outputs consistent.
+The default behavior is one command that creates both images together.
 
 ## Installation
 
@@ -28,18 +29,24 @@ Planned contract shape:
 sb-image-create generate \
   --title "The Clockmaker's Debt" \
   --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency." \
-  --variant cover \
-  --name-root clockmakers-debt \
+  --dry-run \
   --json
 ```
+
+Current implementation status:
+- `generate` resolves the paired request, output filenames, and dimensions
+- `--dry-run` and `--json` work today
+- actual Gemini image generation is the next implementation step
 
 Output behavior:
 - default output directory is the current working directory
 - use `--output-dir` to write elsewhere
-- filenames are derived from `--name-root`
+- `name_root` is derived automatically from the title unless overridden with `--name-root`
 - output files are:
   - `<name_root>_cover.jpg`
   - `<name_root>_thumb.jpg`
+- the thumbnail uses the story title as its default text
+- one run creates both files
 
 Example with explicit output directory:
 
@@ -47,13 +54,19 @@ Example with explicit output directory:
 sb-image-create generate \
   --title "The Clockmaker's Debt" \
   --synopsis "A disgraced watchmaker discovers his missing daughter is trapped in a city that trades years of life as currency." \
-  --variant thumbnail \
   --name-root clockmakers-debt \
   --output-dir /abs/path/to/story-assets \
-  --reference-image /abs/path/to/story-assets/clockmakers-debt_cover.jpg \
-  --title-text "HE SOLD TIME TO SAVE HER" \
+  --dry-run \
   --json
 ```
+
+Prompt-generation behavior:
+- the app uses built-in prompt logic derived from the project’s image-direction skills and agent guides
+- those docs are design references for future upgrades
+- the app should not need to read markdown prompt files at runtime
+
+Config example:
+- start from [`image-config.toml.example`](/Users/lee/projects/sb-image-create/image-config.toml.example)
 
 ## Development Setup
 
