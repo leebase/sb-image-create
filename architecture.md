@@ -47,3 +47,18 @@
 **Consequences:**
 - The slugging function is part of the contract and must be tested.
 - The app should fail clearly if a safe slug cannot be derived.
+
+---
+
+## 2026-03-20 - Provider Dispatch Uses A Stable Internal Hook
+
+**Decision:** The CLI resolves a `provider` and routes generation through an internal provider check, even though only Gemini is currently implemented.
+
+**Rationale:** This keeps future backend expansion from forcing a CLI redesign and creates a clean seam for adding OpenRouter later.
+
+**Alternatives rejected:**
+- Hardcode Gemini throughout the generation path: rejected because it raises future refactor cost.
+
+**Consequences:**
+- Unsupported providers fail clearly today.
+- Expansion work can build on a stable internal dispatch layer.

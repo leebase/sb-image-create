@@ -12,8 +12,8 @@
 |-----------|-------|
 | **Project** | sb-image-create |
 | **Profile** | Python Package |
-| **Current Phase** | Phase 1 — Core Foundation |
-| **Overall Status** | 🟡 Dry-run CLI implemented, Gemini generation pending |
+| **Current Phase** | Phase 3 — Quality And Reproducibility |
+| **Overall Status** | 🟡 Live Gemini flow validated; quality and expansion work active |
 | **Last Updated** | 2026-03-20 |
 
 ---
@@ -26,8 +26,8 @@
 
 | Criterion | Status | Notes |
 |-----------|--------|-------|
-| Agent-callable image CLI | 🟡 In progress | Dry-run command and output resolution implemented |
-| Related cover + thumbnail workflow | 🟡 Designed | Generation flow documented, implementation pending |
+| Agent-callable image CLI | ✅ Done | Dry-run, install smoke, and global command verification exist |
+| Related cover + thumbnail workflow | ✅ Done | Live Gemini flow generated both assets and metadata |
 | Basic documentation | ✅ Done | Scaffolded by init-agent |
 
 ### Current Phase Goals
@@ -36,7 +36,7 @@
 |------|--------|-------|
 | Establish project structure | ✅ Done | |
 | Define product vision | ✅ Done | `product-definition.md` created |
-| First working feature | 🟡 In progress | Dry-run paired generator skeleton exists |
+| First working feature | ✅ Done | Dry-run paired generator and install smoke exist |
 
 ---
 
@@ -44,7 +44,10 @@
 
 | Sprint | Focus | Status |
 |--------|-------|--------|
-| Sprint 1 — Foundation | Paired CLI contract and first implementation slice | 🟡 Active |
+| Sprint 1 — Foundation | Paired CLI contract and first implementation slice | ✅ Complete |
+| Sprint 2 — Gemini Generation | Real paired-image production | ✅ Complete |
+| Sprint 3 — Quality And Reproducibility | Better metadata and prompt traceability | 🟡 Active |
+| Sprint 4 — Expansion | Provider flexibility groundwork | 🟡 In Progress |
 
 ---
 
@@ -52,8 +55,8 @@
 
 | Risk/Blocker | Impact | Status |
 |-------------|--------|--------|
-| Full Gemini generation not yet implemented | No final images yet | 🟡 Action needed |
 | Prompt logic still needs code-level enrichment | Image quality work remains | 🟡 Manageable |
+| Alternate provider support not yet implemented | Expansion remains partial | 🟡 Manageable |
 
 ---
 

@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "title": "The Lantern Below",
+  "synopsis": "A grieving lighthouse keeper discovers a second light burning beneath the sea, calling ships toward a city that should not exist.",
+  "name_root": "the-lantern-below",
+  "output_dir": "/Users/lee/projects/sb-image-create/tmp-output-live",
+  "thumbnail_text": "The Lantern Below",
+  "models": {
+    "text": "gemini-3-flash-preview",
+    "image": "gemini-3.1-flash-image-preview"
+  },
+  "outputs": {
+    "cover": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-live/the-lantern-below_cover.jpg",
+      "width": 1920,
+      "height": 1080
+    },
+    "thumbnail": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-live/the-lantern-below_thumb.jpg",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "direction": {
+    "subject": "A weathered, grieving lighthouse keeper gazing down from a jagged cliff into the dark ocean.",
+    "setting": "A stormy, midnight coastal cliffside overlooking a turbulent sea with a submerged bioluminescent civilization visible deep below.",
+    "mood": "Melancholic, haunting, atmospheric, and eerie.",
+    "motifs": [
+      "Twin light beams",
+      "Swirling dark water",
+      "Sunken spires",
+      "Ancient brass lanterns"
+    ],
+    "palette": "Deep navy, cold emerald green, and a piercing, warm amber-gold for the supernatural lights.",
+    "composition": "Wide cinematic shot with the lighthouse on the left third and the glowing underwater city in the right bottom third, creating a diagonal tension.",
+    "continuity_rules": [
+      "The keeper wears a salt-stained dark peacoat",
+      "The underwater glow must be a distinct bioluminescent amber",
+      "Mist and sea spray must be present"
+    ],
+    "cover_prompt": "A cinematic 16:9 wide shot of a lonely lighthouse on a jagged cliff at midnight; a powerful beam of white light cuts through the fog, while deep beneath the dark, churning waves, a massive, ethereal golden city glows with haunting beauty. Photorealistic, maritime horror aesthetic, 8k, highly detailed, moody lighting.",
+    "thumbnail_prompt": "A high-contrast 16:9 YouTube thumbnail featuring a close-up of a weathered hand holding a glowing antique brass lantern over a dark abyss. In the water below, the terrifyingly beautiful silhouette of a sunken city glows in vibrant teal and neon gold. Sharp focus, saturated colors, with the bold, stylized text 'The Lantern Below' prominently displayed."
+  },
+  "prompts": {
+    "cover": "A cinematic 16:9 wide shot of a lonely lighthouse on a jagged cliff at midnight; a powerful beam of white light cuts through the fog, while deep beneath the dark, churning waves, a massive, ethereal golden city glows with haunting beauty. Photorealistic, maritime horror aesthetic, 8k, highly detailed, moody lighting.",
+    "thumbnail": "A high-contrast 16:9 YouTube thumbnail featuring a close-up of a weathered hand holding a glowing antique brass lantern over a dark abyss. In the water below, the terrifyingly beautiful silhouette of a sunken city glows in vibrant teal and neon gold. Sharp focus, saturated colors, with the bold, stylized text 'The Lantern Below' prominently displayed."
+  },
+  "metadata_path": "/Users/lee/projects/sb-image-create/tmp-output-live/the-lantern-below_metadata.json"
+}

@@ -8,21 +8,24 @@
 
 | Attribute | Value |
 |-----------|-------|
-| **Phase** | Initial CLI Skeleton Implemented |
+| **Phase** | Sprint 3 - Quality And Reproducibility Active |
 | **Mode** | 2 (Implementation with approval) |
 | **Last Updated** | 2026-03-20 |
 
 ### Sprint Status
 | Sprint | Status | Completion |
 |--------|--------|------------|
-| Sprint 1 — Foundation | 🟡 Active | 55% |
+| Sprint 1 — Foundation | ✅ Complete | 100% |
+| Sprint 2 — Gemini Generation | ✅ Complete | 100% |
+| Sprint 3 — Quality And Reproducibility | 🟡 Active | 70% |
+| Sprint 4 — Expansion | 🟡 In Progress | 25% |
 
 ---
 
 ## What's Happening Now
 
 ### Current Work Stream
-Converting the design into a working paired-image CLI skeleton with dry-run behavior and predictable output resolution.
+Improving metadata, prompt traceability, and expansion hooks on top of a validated Gemini-backed paired generation flow.
 
 ### Recently Completed
 - ✅ Project scaffolded with init-agent
@@ -42,9 +45,19 @@ Converting the design into a working paired-image CLI skeleton with dry-run beha
 - ✅ CLI tests added and passing with `PYTHONPATH=src pytest`
 - ✅ `image-config.toml.example` created
 - ✅ `architecture.md` created
+- ✅ Editable install smoke test completed
+- ✅ Installed command verified at its installed path
+- ✅ Gemini-backed paired generation path implemented in code
+- ✅ Live Gemini paired generation validated end to end
+- ✅ Metadata sidecars now include provider and prompt logic version
+- ✅ Provider dispatch hook added for future expansion
+- ✅ Provider contract test added
+- ✅ Global `sb-image-create` command verified on this machine
+- ✅ README updated with practical run/auth instructions
 
 ### In Progress
-- ⏳ Preparing the Gemini-backed generation step and richer prompt logic
+- ⏳ Enriching built-in prompt logic and broadening expansion support without breaking the CLI contract
+- ⏳ Updating the creative contract so the cover includes title text and the thumbnail supports an optional subtitle
 
 ---
 
@@ -59,6 +72,12 @@ Converting the design into a working paired-image CLI skeleton with dry-run beha
 | Built-in prompt logic | Callable-from-anywhere behavior is more reliable than runtime markdown parsing | 2026-03-20 |
 | `name_root` defaults from title slug | Reduces required arguments while keeping output filenames predictable | 2026-03-20 |
 | Valid import package name `sb_image_create` | Python console entry points cannot import hyphenated module paths | 2026-03-20 |
+| Sprint 1 closed before Sprint 2 execution | Keeps the project aligned with AgentFlow sequencing | 2026-03-20 |
+| Local `.env` loading from current working directory | Makes the installed command usable in common repo workflows without manual env exporting | 2026-03-20 |
+| Provider dispatch hook added before alternate backend implementation | Keeps expansion from forcing a later CLI redesign | 2026-03-20 |
+| Global command availability verified | `sb-image-create` is callable directly on this machine via `/usr/local/bin` | 2026-03-20 |
+| Title on both final assets | Keeps the story background image and thumbnail aligned as branded deliverables | 2026-03-20 |
+| Optional thumbnail subtitle | Adds an extra marketing/control surface without changing the paired-output contract | 2026-03-20 |
 
 ---
 
@@ -88,8 +107,8 @@ Converting the design into a working paired-image CLI skeleton with dry-run beha
 
 ## Open Questions (keep short)
 
-1. What exact generation metadata should be persisted once Gemini image creation is live?
-2. How rich should the built-in prompt templates be in v1 before adding prompt versioning?
+1. How rich should the built-in prompt templates be before introducing preset/style profile support?
+2. What asset-workflow features are most valuable after metadata depth is good enough?
 
 ---
 
@@ -97,10 +116,10 @@ Converting the design into a working paired-image CLI skeleton with dry-run beha
 
 | Rank | Action | Owner | Done When |
 |------|--------|-------|----------|
-| 1 | Add Gemini-backed paired generation | AI | End-to-end cover + thumbnail generation works |
-| 2 | Enrich built-in prompt logic from project guidance | AI | Direction and prompt payloads are meaningful, not placeholders |
-| 3 | Persist paired metadata sidecars | AI | Runs are reproducible and debuggable |
-| 4 | Package and install smoke test | AI | `sb-image-create generate` works after editable install |
+| 1 | Enrich built-in prompt logic from project guidance | AI | Direction and prompt payloads are stronger than the baseline |
+| 2 | Improve asset workflow support | AI | Metadata/output handling scales beyond the current happy path |
+| 3 | Expand provider support when justified | AI | Alternate backend can be added without caller-facing redesign |
+| 4 | Decide on presets/style profiles | Human+AI | Expansion scope is clearer before more abstraction is added |
 
 ---
 

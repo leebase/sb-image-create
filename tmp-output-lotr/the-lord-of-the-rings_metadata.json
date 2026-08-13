@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "provider": "gemini",
+  "prompt_logic_version": "v1",
+  "title": "The Lord of the Rings",
+  "synopsis": "A humble hobbit inherits a powerful ring and joins a fellowship on a perilous journey across Middle-earth to destroy it before the Dark Lord Sauron can conquer the world.",
+  "name_root": "the-lord-of-the-rings",
+  "output_dir": "/Users/lee/projects/sb-image-create/tmp-output-lotr",
+  "thumbnail_text": "The Lord of the Rings",
+  "config_path": "/Users/lee/projects/sb-image-create/image-config.toml",
+  "models": {
+    "text": "gemini-3-flash-preview",
+    "image": "gemini-3.1-flash-image-preview"
+  },
+  "requested_outputs": {
+    "cover": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-lotr/the-lord-of-the-rings_cover.jpg",
+      "width": 1920,
+      "height": 1080
+    },
+    "thumbnail": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-lotr/the-lord-of-the-rings_thumb.jpg",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "direction": {
+    "subject": "A determined hobbit protagonist clutching a glowing golden ring, wearing a weathered grey traveling cloak with a leaf-shaped brooch.",
+    "setting": "The rugged, volcanic landscape of Middle-earth, featuring jagged obsidian peaks and a distant mountain erupting with amber light.",
+    "mood": "Epic, perilous, and atmospheric high-fantasy.",
+    "motifs": [
+      "glowing elvish runes",
+      "the fiery Eye of Sauron",
+      "ancient weathered stone",
+      "molten lava"
+    ],
+    "palette": "High-contrast palette of charcoal black, fiery ember orange, and cold slate blue.",
+    "composition": "Cinematic wide-angle view with the subject on the lower-left third, looking toward a massive focal point in the distance.",
+    "continuity_rules": [
+      "The Ring must have faint, glowing orange inscriptions",
+      "The protagonist's cloak must be charcoal grey with a silver leaf clasp",
+      "The sky must be filled with turbulent, dark storm clouds and volcanic ash"
+    ],
+    "cover_prompt": "Cinematic 16:9 wide shot of a small hobbit in a tattered grey cloak standing on a dark, jagged cliffside. He looks toward a distant, massive volcano erupting with fiery light. The atmosphere is thick with smoke and volumetric lighting. Photorealistic high-fantasy, intricate textures, epic scale, 8k resolution.",
+    "thumbnail_prompt": "16:9 YouTube thumbnail with high saturation and extreme contrast. A close-up of a hand holding the glowing One Ring with visible fire-runes. In the background, a massive flaming eye looms over a dark mountain range. Large, bold centered text reads 'The Lord of the Rings'. Vibrant orange and deep black color grade, sharp focus, hyper-detailed."
+  },
+  "prompts": {
+    "cover": "Cinematic 16:9 wide shot of a small hobbit in a tattered grey cloak standing on a dark, jagged cliffside. He looks toward a distant, massive volcano erupting with fiery light. The atmosphere is thick with smoke and volumetric lighting. Photorealistic high-fantasy, intricate textures, epic scale, 8k resolution.",
+    "thumbnail": "16:9 YouTube thumbnail with high saturation and extreme contrast. A close-up of a hand holding the glowing One Ring with visible fire-runes. In the background, a massive flaming eye looms over a dark mountain range. Large, bold centered text reads 'The Lord of the Rings'. Vibrant orange and deep black color grade, sharp focus, hyper-detailed."
+  },
+  "metadata_path": "/Users/lee/projects/sb-image-create/tmp-output-lotr/the-lord-of-the-rings_metadata.json"
+}

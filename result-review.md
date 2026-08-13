@@ -6,6 +6,81 @@
 
 ---
 
+## 2026-03-20 — Text Overlay Contract Updated
+
+**The creative contract was updated** so the story background image should also contain the title, and the thumbnail now supports an additional optional subtitle line.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `product-definition.md` | Updated product expectations for title placement and subtitle support |
+| `design.md` | Updated workflow and prompting rules for title-on-cover and thumbnail subtitle support |
+| `README.md` | Added usage notes and examples for the subtitle-capable contract |
+| `context.md` | Recorded the new creative decisions |
+
+### Why It Matters
+
+This makes the generated outputs more directly usable as branded story assets instead of requiring an external text-overlay step for the cover.
+
+### How to Verify
+
+1. Read `product-definition.md` and confirm title text is expected on both assets
+2. Read `design.md` and confirm `--subtitle` is described as thumbnail-only
+3. Read `README.md` and confirm the new subtitle example exists
+
+---
+
+## 2026-03-20 — Global Command Usage Documented
+
+**The docs now explain how to run the installed command in practice.** This includes global command usage, auth expectations, dry-run vs live generation, and expected output files.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `README.md` | Updated with practical installation, auth, usage, and output instructions |
+| `context.md` | Updated to record global command verification |
+| `WHERE_AM_I.md` | Updated to reflect agent-callable CLI readiness |
+
+### Why It Matters
+
+The tool is now easier to pick up in a future session without rediscovering how auth and the installed command behave on this machine.
+
+### How to Verify
+
+```bash
+sb-image-create --version
+sb-image-create generate --title "Anywhere Smoke" --synopsis "A command is invoked from the shell and resolves its paired output contract." --dry-run
+```
+
+---
+
+## 2026-03-20 — Live Gemini Paired Generation Validated
+
+**The real Gemini-backed command generated both assets successfully.** The CLI produced a cover image, a related thumbnail, and a metadata sidecar in one run using the installed command.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `src/sb_image_create/main.py` | Implemented live Gemini direction, cover generation, thumbnail generation, `.env` loading, metadata writing, and provider dispatch |
+| `tests/test_cli.py` | Added tests for metadata sidecars and unsupported providers |
+| `image-config.toml.example` | Expanded example to include provider and model defaults |
+
+### Why It Matters
+
+The project has crossed from scaffold to useful tool. The command now performs the workflow it was created for instead of only resolving a dry-run contract.
+
+### How to Verify
+
+```bash
+PYTHONPATH=src pytest
+/Library/Frameworks/Python.framework/Versions/3.11/bin/sb-image-create generate --title "The Glass Orchard" --synopsis "An exiled botanist returns to a frozen city where every tree has been replaced by singing glass." --output-dir /abs/path/to/output --json
+```
+
+---
+
 ## 2026-03-20 — Product Direction Defined
 
 **Project purpose clarified** around a local Python CLI for AI agents and other harnesses that generates one story-related image per call, with the intended MVP workflow being two coordinated calls: one for a story cover and one for a related YouTube thumbnail.
@@ -157,6 +232,31 @@ The project is no longer only a design exercise. There is now a working command 
 ```bash
 PYTHONPATH=src pytest
 PYTHONPATH=src python3 -m sb_image_create.main generate --title "The Clockmaker's Debt" --synopsis "A desperate watchmaker chases stolen years." --dry-run
+```
+
+---
+
+## 2026-03-20 — Sprint 1 Closed
+
+**Sprint 1 was formally closed** after completing the editable-install smoke test and verifying the installed command at its actual install location.
+
+### Completed
+
+| File | Update |
+|------|--------|
+| `sprint-plan.md` | Sprint 1 marked complete and Sprint 2 marked active |
+| `context.md` | Updated active workstream and next actions |
+| `WHERE_AM_I.md` | Updated project phase and sprint position |
+
+### Why It Matters
+
+This brings the repo back into AgentFlow sequence: the foundation sprint is complete, and Sprint 2 can now proceed from a clean checkpoint.
+
+### How to Verify
+
+```bash
+python3 -m pip install -e .
+/Library/Frameworks/Python.framework/Versions/3.11/bin/sb-image-create generate --title "Sprint One Smoke" --synopsis "A small command proves the package install works." --dry-run
 ```
 
 ---

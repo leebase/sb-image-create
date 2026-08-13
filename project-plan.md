@@ -149,7 +149,7 @@ The executable application should translate that guidance into built-in Python p
 - naming and output paths are predictable
 - config precedence is tested
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 ---
 
@@ -168,7 +168,7 @@ The executable application should translate that guidance into built-in Python p
 - thumbnail continuity is visibly preserved
 - failures are machine-readable
 
-**Status:** PLANNED
+**Status:** COMPLETE
 
 ---
 
@@ -187,7 +187,7 @@ The executable application should translate that guidance into built-in Python p
 - generated artifacts are reproducible enough for debugging
 - the tool is easy to integrate into real pipelines
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 
 ---
 
@@ -201,7 +201,7 @@ The executable application should translate that guidance into built-in Python p
 - improved metadata and asset catalog support
 - optional packaging/distribution improvements
 
-**Status:** OPTIONAL
+**Status:** IN PROGRESS
 
 ---
 
@@ -230,9 +230,9 @@ The executable application should translate that guidance into built-in Python p
 
 ## Current Status
 
-**Current Phase:** Phase 1 - Foundation CLI  
+**Current Phase:** Phase 3 - Quality And Reproducibility  
 **Mode:** Collaborative  
-**Next Milestone:** Gemini-backed paired generation with metadata sidecars
+**Next Milestone:** Stronger prompt quality and broader asset-workflow support on top of the validated Gemini flow
 
 ---
 

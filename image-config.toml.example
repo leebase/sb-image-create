@@ -1,3 +1,9 @@
+provider = "gemini"
+
+[models]
+text = "gemini-3-flash-preview"
+image = "gemini-3.1-flash-image-preview"
+
 [output]
 # Default output directory. When omitted, the CLI uses the current working directory.
 # directory = "story-assets"

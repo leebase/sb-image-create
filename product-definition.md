@@ -13,6 +13,7 @@ The primary MVP workflow is one call that creates:
 - one `thumbnail` image for YouTube
 
 Those two outputs should feel like part of the same package.
+Both outputs should include the story title, and the thumbnail should support an additional optional subtitle.
 
 ---
 
@@ -158,6 +159,7 @@ They should remain upgradeable over time, but the app should not depend on readi
 
 That artifact should likely include:
 - story title
+- optional subtitle
 - synopsis
 - core subject
 - setting
@@ -212,7 +214,8 @@ The CLI contract should stay provider-agnostic even if Gemini is the first imple
 - predictable paired-output naming controlled by derived or explicit `name_root` and optional `output_dir`
 - parent directories created automatically
 - story-first inputs preferred over ad hoc prompt-only input
-- title should be used as the default thumbnail text input
+- title should be used as visible text on both the cover image and the thumbnail
+- the thumbnail should support an additional optional subtitle line
 - machine-readable behavior when requested
 - loud failure on auth, generation, or file-save errors
 - safe to run inside unattended agent pipelines
@@ -224,6 +227,7 @@ The CLI contract should stay provider-agnostic even if Gemini is the first imple
 - an agent can invoke the tool without manual intervention
 - title and synopsis are enough to derive usable image direction
 - cover and thumbnail outputs are recognizably related
+- the story title appears on both final assets
 - output files are written to predictable paths without requiring the caller to pass full filenames
 - `name_root` is derived automatically from the title unless explicitly overridden
 - the direction artifact is inspectable and reusable

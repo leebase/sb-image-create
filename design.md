@@ -23,7 +23,8 @@ For the first implementation, "related" does not mean "prompted similarly." It m
 - the `cover` is generated first as the canonical story image
 - the `thumbnail` is generated from that cover image as an edit/transform
 - the thumbnail preserves the same scene identity, subject, palette, and mood
-- the thumbnail is recomposed for clickability and can include title text
+- the cover includes the story title
+- the thumbnail is recomposed for clickability and includes the title, with optional subtitle support
 
 This mirrors the strongest Gemini-native workflow we identified: generate a base image, then iterate from it in the same conversation or with the first image supplied back as reference.
 
@@ -54,6 +55,7 @@ Required:
 
 Important optional inputs:
 - `--title-text`
+- `--subtitle`
 - `--name-root`
 - `--output-dir`
 - `--cover-width`
@@ -69,6 +71,7 @@ Important optional inputs:
 
 Notes:
 - `--title-text` defaults to the story title
+- `--subtitle` is intended for thumbnail-only secondary text
 - `--name-root` defaults to a filename-safe slug derived from the story title
 
 Default output behavior:
@@ -100,7 +103,7 @@ The config file should define reusable defaults such as:
 - metadata sidecar behavior
 - style defaults
 - prompt preferences
-- default thumbnail title handling
+- default title/subtitle handling
 
 Suggested precedence:
 1. explicit CLI flags
@@ -177,6 +180,7 @@ When the skills or agent guidance change, the app should be updated to match and
 
 Suggested fields:
 - story title
+- optional subtitle
 - synopsis
 - subject
 - setting
@@ -196,7 +200,8 @@ Requirements:
 - cinematic 16:9 composition
 - strong focal subject
 - suitable as a background image for HD video
-- no overlaid text in the base cover image unless explicitly requested later
+- include the story title in a readable way
+- leave enough visual clarity that the title feels integrated rather than pasted on
 
 ### 4. Thumbnail Generation
 
@@ -209,7 +214,8 @@ That step should be guided by:
 Requirements:
 - preserve the visual identity of the cover
 - increase readability and contrast at small size
-- allow bold title text or a title-safe region
+- include bold title text
+- support an optional subtitle line
 - remain recognizably the same story package
 
 ---
@@ -226,6 +232,7 @@ Preferred characteristics:
 - enough negative space for video overlays if needed
 - strong atmosphere
 - readable subject at a glance
+- title integrated into the final image
 
 Default target:
 - 16:9
@@ -242,6 +249,7 @@ Preferred characteristics:
 - stronger focal emphasis
 - higher contrast
 - room for large attention-grabbing title text
+- optional smaller subtitle support
 - optimized for small preview size
 
 Default target:
@@ -257,15 +265,18 @@ Default target:
 1. Load built-in defaults and merge with any config file values and CLI overrides
 2. Derive `name_root` from the title unless explicitly provided
 3. Derive thumbnail title text from the story title unless explicitly provided
-4. Use `gemini-3-flash-preview` to derive direction from title and synopsis
-5. Use `gemini-3.1-flash-image-preview` to generate the cover image
-6. Use the generated cover image as the source for thumbnail generation
-7. Ask Gemini to preserve scene identity while optimizing for thumbnail use and incorporating title text
-8. Save both images and structured metadata
+4. Pass optional subtitle text for thumbnail use
+5. Use `gemini-3-flash-preview` to derive direction from title and synopsis
+6. Use `gemini-3.1-flash-image-preview` to generate the cover image with the story title visible
+7. Use the generated cover image as the source for thumbnail generation
+8. Ask Gemini to preserve scene identity while optimizing for thumbnail use and incorporating title and optional subtitle text
+9. Save both images and structured metadata
 
 Important prompt rule:
 - explicitly instruct Gemini not to change the core scene identity when generating the thumbnail
+- explicitly tell Gemini to include the story title on the cover
 - explicitly tell Gemini to include the title text in the thumbnail output
+- include subtitle text in the thumbnail only when provided
 
 ---
 
@@ -283,6 +294,7 @@ Thumbnail prompts should include language like:
 - preserve the same story identity
 - increase clarity and contrast for thumbnail readability
 - include the story title as bold thumbnail text
+- include the subtitle as a secondary line when provided
 - do not change the fundamental scene
 
 ---

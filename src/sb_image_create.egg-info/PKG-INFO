@@ -1,3 +1,22 @@
+Metadata-Version: 2.4
+Name: sb-image-create
+Version: 0.1.0
+Summary: AI-agent project: sb-image-create
+Author: Lee Harrington
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: black>=23.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+
 # sb-image-create
 
 `sb-image-create` is a local Python project for AI agents and automation harnesses that turns a story title and synopsis into matched image assets.

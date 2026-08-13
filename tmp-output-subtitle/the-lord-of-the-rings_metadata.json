@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "provider": "gemini",
+  "prompt_logic_version": "v1",
+  "title": "The Lord of the Rings",
+  "synopsis": "A humble hobbit inherits a powerful ring and joins a fellowship on a perilous journey across Middle-earth to destroy it before the Dark Lord Sauron can conquer the world.",
+  "name_root": "the-lord-of-the-rings",
+  "output_dir": "/Users/lee/projects/sb-image-create/tmp-output-subtitle",
+  "cover_title_text": "The Lord of the Rings",
+  "thumbnail_text": "The Lord of the Rings",
+  "subtitle": "One ring. One journey. One last chance.",
+  "config_path": "/Users/lee/projects/sb-image-create/image-config.toml",
+  "models": {
+    "text": "gemini-3-flash-preview",
+    "image": "gemini-3.1-flash-image-preview"
+  },
+  "requested_outputs": {
+    "cover": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-subtitle/the-lord-of-the-rings_cover.jpg",
+      "width": 1920,
+      "height": 1080
+    },
+    "thumbnail": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-subtitle/the-lord-of-the-rings_thumb.jpg",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "direction": {
+    "subject": "A weathered hobbit figure clutching a glowing golden ring, representing the burden of the journey.",
+    "setting": "The dark, craggy landscapes of Middle-earth with a distant, glowing volcano under a stormy, epic sky.",
+    "mood": "Epic, perilous, and atmospheric high fantasy with a sense of immense scale.",
+    "motifs": [
+      "The One Ring with faint glowing inscriptions",
+      "The silhouette of a dark tower",
+      "Jagged mountain peaks",
+      "Swirling ash and embers"
+    ],
+    "palette": "A high-contrast mix of volcanic oranges, deep obsidian blacks, and cold slate greys.",
+    "composition": "Cinematic wide-angle shots with a focus on scale; low-angle shots for the subject to emphasize the weight of the quest.",
+    "continuity_rules": [
+      "The Ring must emit a soft, warm golden light",
+      "Characters wear textured, travel-worn fabrics",
+      "Atmospheric fog and embers are present in all scenes"
+    ],
+    "cover_prompt": "A cinematic 16:9 wide shot of a lone traveler in a tattered cloak standing on a rocky precipice overlooking the dark land of Mordor. A distant volcano erupts with soft orange light. The title 'The Lord of the Rings' is elegantly integrated into the dark clouds in a gold-etched, serif font. High-detail fantasy art, moody lighting, epic scale.",
+    "thumbnail_prompt": "A high-impact 16:9 YouTube thumbnail featuring a close-up of a hand holding the glowing One Ring. In the blurred background, a flaming eye looms over a dark tower. Bold, prominent 3D gold text reads 'The Lord of the Rings'. Directly underneath, in a smaller secondary font, reads the subtitle: 'One ring. One journey. One last chance.' Vibrant contrast, saturated oranges and blacks, hyper-realistic detail."
+  },
+  "prompts": {
+    "cover": "A cinematic 16:9 wide shot of a lone traveler in a tattered cloak standing on a rocky precipice overlooking the dark land of Mordor. A distant volcano erupts with soft orange light. The title 'The Lord of the Rings' is elegantly integrated into the dark clouds in a gold-etched, serif font. High-detail fantasy art, moody lighting, epic scale.",
+    "thumbnail": "A high-impact 16:9 YouTube thumbnail featuring a close-up of a hand holding the glowing One Ring. In the blurred background, a flaming eye looms over a dark tower. Bold, prominent 3D gold text reads 'The Lord of the Rings'. Directly underneath, in a smaller secondary font, reads the subtitle: 'One ring. One journey. One last chance.' Vibrant contrast, saturated oranges and blacks, hyper-realistic detail."
+  },
+  "metadata_path": "/Users/lee/projects/sb-image-create/tmp-output-subtitle/the-lord-of-the-rings_metadata.json"
+}

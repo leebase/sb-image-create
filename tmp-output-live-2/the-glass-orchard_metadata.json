@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "provider": "gemini",
+  "prompt_logic_version": "v1",
+  "title": "The Glass Orchard",
+  "synopsis": "An exiled botanist returns to a frozen city where every tree has been replaced by singing glass.",
+  "name_root": "the-glass-orchard",
+  "output_dir": "/Users/lee/projects/sb-image-create/tmp-output-live-2",
+  "thumbnail_text": "The Glass Orchard",
+  "config_path": "/Users/lee/projects/sb-image-create/image-config.toml",
+  "models": {
+    "text": "gemini-3-flash-preview",
+    "image": "gemini-3.1-flash-image-preview"
+  },
+  "requested_outputs": {
+    "cover": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-live-2/the-glass-orchard_cover.jpg",
+      "width": 1920,
+      "height": 1080
+    },
+    "thumbnail": {
+      "path": "/Users/lee/projects/sb-image-create/tmp-output-live-2/the-glass-orchard_thumb.jpg",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "direction": {
+    "subject": "An exiled botanist in a heavy tattered coat reaching out to touch a crystalline tree.",
+    "setting": "A frozen, desolate city where organic life has been replaced by sprawling, translucent glass orchards under a twilight sky.",
+    "mood": "Ethereal, melancholic, and vibrantly cold.",
+    "motifs": [
+      "prismatic light refractions",
+      "fractal frost patterns",
+      "shattered glass leaves",
+      "sonic ripples"
+    ],
+    "palette": "Glacial blues, deep indigo, and sharp spectrum-prism rainbows.",
+    "composition": "Cinematic wide angle with leading lines created by the glass branches.",
+    "continuity_rules": [
+      "The botanist always wears a dark, fur-lined tattered coat",
+      "Glass trees must be translucent with glowing internal veins",
+      "Constant presence of atmospheric frost particles"
+    ],
+    "cover_prompt": "Cinematic 16:9 wide shot, an exiled botanist standing in a frozen city square filled with towering singing glass trees, translucent crystalline branches refracting twilight light into rainbows, sharp detail, ethereal atmosphere, hyper-realistic digital art.",
+    "thumbnail_prompt": "High-contrast 16:9 composition, a glowing glass tree branch in sharp focus with prismatic light flares, the botanist's silhouette in the background, vibrant cold blues and purples, bold centered text 'The Glass Orchard' in a clean elegant serif font, optimized for YouTube."
+  },
+  "prompts": {
+    "cover": "Cinematic 16:9 wide shot, an exiled botanist standing in a frozen city square filled with towering singing glass trees, translucent crystalline branches refracting twilight light into rainbows, sharp detail, ethereal atmosphere, hyper-realistic digital art.",
+    "thumbnail": "High-contrast 16:9 composition, a glowing glass tree branch in sharp focus with prismatic light flares, the botanist's silhouette in the background, vibrant cold blues and purples, bold centered text 'The Glass Orchard' in a clean elegant serif font, optimized for YouTube."
+  },
+  "metadata_path": "/Users/lee/projects/sb-image-create/tmp-output-live-2/the-glass-orchard_metadata.json"
+}
