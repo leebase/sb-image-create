@@ -1,2 +1,0 @@
-[console_scripts]
-sb-image-create = sb_image_create.main:main

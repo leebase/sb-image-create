@@ -10,3 +10,10 @@ __pycache__/
 .mypy_cache/
 .venv/
 venv/
+
+# local harness state / macOS residue (estate sweep 2026-09-04)
+.claude/settings.local.json
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+._*
+.DS_Store
